@@ -3,30 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Economic Webpage</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Image Slider</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slider {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Navigation dots */
+        .dots {
+            text-align: center;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active {
+            background-color: #717171;
+        }
+
+        /* Next and previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Economic Webpage</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="main-content">
-        <h2>Welcome to Our Page</h2>
-        <p>This is a simple, lightweight webpage template focused on economic usage of HTML and CSS. It is structured to load quickly and minimize resources.</p>
-    </section>
+    <div class="slider">
+        <div class="slides">
+            <img src="OIP2.jpg" alt="Slide 1">
+            <img src="download.jpg" alt="Slide 2">
+            <img src="OIP4.jpg" alt="Slide 3">
+            <img src="photo.jpg" alt="Slide 4">
+        </div>
+        <!-- Navigation buttons -->
+        <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+        <a class="next" onclick="moveSlide(1)">&#10095;</a>
 
-    <footer>
-        <p>&copy; 2024 Economic Webpage. All rights reserved.</p>
-    </footer>
+        <!-- Dots -->
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        showSlides(slideIndex);
+
+        function moveSlide(n) {
+            slideIndex += n;
+            if (slideIndex > 3) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = 3;
+            showSlides(slideIndex);
+        }
+
+        function currentSlide(n) {
+            slideIndex = n - 1;
+            showSlides(slideIndex);
+        }
+
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.slides img');
+            const dots = document.querySelectorAll('.dot');
+            slides.forEach(slide => slide.style.display = "none");
+            dots.forEach(dot => dot.className = dot.className.replace(" active", ""));
+            slides[n].style.display = "block";
+            dots[n].className += " active";
+        }
+    </script>
+
 </body>
 </html>
